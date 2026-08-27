@@ -388,13 +388,42 @@
            display: block;
         }
 
-        .video-thumbnail img, 
-        .video-thumbnail video {
+        /* Thumbnail Image Layering */
+        .video-thumbnail .thumbnail-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.9;
-            transition: opacity 0.3s ease, filter 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Preview Video Layering */
+        .video-thumbnail .preview-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Show video and hide image on hover or when playing */
+        .video-thumbnail:hover .preview-video,
+        .video-thumbnail.is-playing .preview-video {
+            opacity: 1 !important;
+            filter: none !important;
+        }
+
+        .video-thumbnail:hover .thumbnail-image,
+        .video-thumbnail.is-playing .thumbnail-image {
+            opacity: 0;
         }
 
         /* Eye Icon for Hover - Adapted for Black (Light) & White (Dark) Themes */
@@ -411,7 +440,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            z-index: 2;
+            z-index: 3; /* Increased to ensure it stays above the preview video */
             transition: all 0.3s ease;
             transform: scale(0.8);
             pointer-events: none;
@@ -420,12 +449,6 @@
         .video-thumbnail:hover .view-icon {
             opacity: 1;
             transform: scale(1);
-        }
-
-        /* Subtle blur and opacity on video hover (excludes iframes below) */
-        .video-thumbnail:hover video {
-            opacity: 0.7;
-            filter: blur(2px);
         }
 
         /* Ensure Film & Animation Trailers (iframes) remain completely clear on hover */
@@ -769,8 +792,8 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802719/kerova.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802719/kerova.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/kerova.jpg" alt="Kerova Premium Footwear">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802719/kerova.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>Kerova Premium Footwear</h3>
@@ -779,8 +802,8 @@
                 </div>
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802700/glowmist.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802700/glowmist.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/glowmist.jpg" alt="GlowMist Anti-Dry Skin Spray">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802700/glowmist.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>GlowMist Anti-Dry Skin Spray</h3>
@@ -789,8 +812,8 @@
                 </div>
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802722/earbuds.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802722/earbuds.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/earbuds.jpg" alt="Wireless Earbuds ANC & ENC">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802722/earbuds.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>Wireless Earbuds ANC & ENC</h3>
@@ -803,8 +826,8 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/boja.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/boja.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/boja.jpg" alt="Editing Showcase">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/boja.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>Editing Showcase</h3>
@@ -813,8 +836,8 @@
                 </div>
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/scale.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/scale.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/scale.jpg" alt="Editing Tips">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802701/scale.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>Editing Tips</h3>
@@ -823,8 +846,8 @@
                 </div>
                 <div class="video-card">
                     <div class="video-thumbnail modal-trigger" data-type="video" data-src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802724/ads.mp4">
-                        <video src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802724/ads.mp4" muted autoplay loop playsinline></video>
-                        <i class="fas fa-eye view-icon"></i>
+                        <img class="thumbnail-image" src="assets/thumbnails/ads.jpg" alt="UGC Product Ad Pet Cage">
+                        <video class="preview-video" src="https://res.cloudinary.com/oco4zlvw/video/upload/v1787802724/ads.mp4" muted loop playsinline preload="metadata"></video>
                     </div>
                     <div class="video-info">
                         <h3>UGC Product Ad Pet Cage</h3>
@@ -840,7 +863,7 @@
                         <iframe
                             width="100%"
                             height="315"
-                            src="https://www.youtube.com/embed/nrrr803Ha9I"
+                            src="https://www.youtube.com/embed/nrrr803Ha9I?enablejsapi=1"
                             title="AI-Generated Brand Intro"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -857,7 +880,7 @@
                         <iframe
                             width="100%"
                             height="315"
-                            src="https://www.youtube.com/embed/JVjnOovOSMs"
+                            src="https://www.youtube.com/embed/JVjnOovOSMs?enablejsapi=1"
                             title="AI-Generated Brand Intro"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -874,7 +897,7 @@
                         <iframe
                             width="100%"
                             height="315"
-                            src="https://www.youtube.com/embed/4waT3LNY8e0"
+                            src="https://www.youtube.com/embed/4waT3LNY8e0?enablejsapi=1"
                             title="AI-Generated Brand Intro"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1219,20 +1242,50 @@
         });
 
         // ==========================================
-        // VIDEO HOVER PAUSE LOGIC
+        // CLOUDINARY VIDEO HOVER PREVIEW
         // ==========================================
-        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
-        videoThumbnails.forEach(thumbnail => {
-            const video = thumbnail.querySelector('video');
-            if (video) {
-                thumbnail.addEventListener('mouseenter', () => {
-                    video.pause();
-                });
-                thumbnail.addEventListener('mouseleave', () => {
-                    video.play();
-                });
-            }
-        });
+        // Only apply on devices with fine pointer and hover capability (Desktop)
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            
+            // 1. Handle Cloudinary <video> elements in E-Commerce Ads and UGC-Style Content
+            const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+            videoThumbnails.forEach(thumbnail => {
+                const video = thumbnail.querySelector('.preview-video');
+                // Skip if it's an iframe container (Film & Animation Trailers)
+                if (video && !thumbnail.querySelector('iframe')) {
+                    thumbnail.addEventListener('mouseenter', () => {
+                        video.currentTime = 0;
+                        video.play().catch(() => {}); // Catch autoplay prevention errors
+                        thumbnail.classList.add('is-playing');
+                    });
+                    
+                    thumbnail.addEventListener('mouseleave', () => {
+                        video.pause();
+                        video.currentTime = 0;
+                        thumbnail.classList.remove('is-playing');
+                    });
+                }
+            });
+
+            // 2. Handle YouTube <iframe> elements in Film & Animation Trailers
+            const iframes = document.querySelectorAll('.video-card iframe');
+            iframes.forEach(iframe => {
+                if (iframe.src.includes('youtube.com/embed/') || iframe.src.includes('youtu.be/')) {
+                    const thumbnail = iframe.parentElement;
+                    thumbnail.addEventListener('mouseenter', () => {
+                        // Native YouTube postMessage API control (no external libraries needed)
+                        iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0, true]}', '*');
+                        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    });
+                    
+                    thumbnail.addEventListener('mouseleave', () => {
+                        // stopVideo resets to beginning and restores the thumbnail
+                        iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
