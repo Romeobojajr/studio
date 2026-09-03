@@ -8,10 +8,10 @@
     
     <!-- Open Graph / Facebook / LinkedIn / TikTok -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourwebsite.com/">
+    <meta property="og:url" content="https://romeobojajr.netlify.app/">
     <meta property="og:title" content="Romeo Boja Jr. | Creative Portfolio - Photo & Video Editor">
-    <meta property="og:description" content="Professional photo and video editor specializing in e-commerce ads, AI content creation, photo restoration, retouching, and social media management.">
-    <meta property="og:image" content="https://yourwebsite.com/images/og-thumbnail.jpg">
+    <meta property="og:description" content="Creative editor who loves working with photos and videos.">
+    <meta property="og:image" content="https://romeobojajr.netlify.app/assets/thumbnails/og-thumbnail.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Romeo Boja Jr. Portfolio">
@@ -19,13 +19,13 @@
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://yourwebsite.com/">
+    <meta name="twitter:url" content="https://romeobojajr.netlify.app/">
     <meta name="twitter:title" content="Romeo Boja Jr. | Creative Portfolio - Photo & Video Editor">
-    <meta name="twitter:description" content="Professional photo and video editor specializing in e-commerce ads, AI content creation, photo restoration, retouching, and social media management.">
-    <meta name="twitter:image" content="https://yourwebsite.com/images/og-thumbnail.jpg">
+    <meta name="twitter:description" content="Creative editor who loves working with photos and videos.">
+    <meta name="twitter:image" content="https://romeobojajr.netlify.app/assets/thumbnails/og-thumbnail.jpg">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type=<link rel="icon" type="image/jpg" href="assets/thumbnails/og-thumbnail.jpg">
     
     <title>Romeo Boja Jr. | Creative Portfolio</title>
     
@@ -355,7 +355,7 @@
 
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
@@ -440,7 +440,7 @@
             align-items: center;
             justify-content: center;
             opacity: 0;
-            z-index: 3; /* Increased to ensure it stays above the preview video */
+            z-index: 3;
             transition: all 0.3s ease;
             transform: scale(0.8);
             pointer-events: none;
@@ -473,7 +473,7 @@
 
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
         }
 
@@ -496,15 +496,14 @@
         /* Full view for photos in UI without cropping */
         .photo-sample {
             width: 100%;
-            height: auto; /* Allows image to dictate its natural height */
-            object-fit: contain; /* Ensures the entire image is visible */
+            height: auto;
+            object-fit: contain;
             background-color: var(--bg-secondary);
             cursor: none;
             transition: filter 0.4s ease, transform 0.4s ease;
             display: block;
         }
         
-        /* Reduced blur effect on hover for photo images (less intense) */
         .photo-thumbnail:hover .photo-sample {
             filter: blur(2px) brightness(0.7);
             transform: scale(1.03);
@@ -581,7 +580,6 @@
             object-fit: contain;
         }
 
-        /* Full view for photos in Modal without cropping */
         .modal-content img {
             width: auto;
             height: auto;
@@ -668,7 +666,22 @@
            ========================================= */
         @media (max-width: 768px) {
             .mobile-toggle { display: block; }
-            .nav-menu { position: fixed; top: 70px; left: 0; right: 0; background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color); flex-direction: column; padding: 20px; gap: 15px; transform: translateY(-100%); opacity: 0; visibility: hidden; transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease; }
+            .nav-menu { 
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                right: 0; 
+                background-color: var(--bg-secondary); 
+                border-bottom: 1px solid var(--border-color); 
+                flex-direction: column; 
+                padding: 80px 20px 20px 20px; 
+                gap: 15px; 
+                transform: translateY(-100%); 
+                opacity: 0; 
+                visibility: hidden; 
+                transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease; 
+                z-index: 999;
+            }
             .nav-menu.active { transform: translateY(0); opacity: 1; visibility: visible; }
             .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding-left: 20px; display: none; }
             .dropdown.active .dropdown-menu { display: block; }
@@ -687,7 +700,6 @@
             .float-btn { width: 50px; height: 50px; font-size: 1.2rem; }
             .contact-float::before { display: none; }
 
-            /* Modal Mobile Optimization */
             .modal-content {
                 max-width: 95%;
                 max-height: 85vh;
@@ -1052,12 +1064,10 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Instant follow for dot
             cursorDot.style.left = `${mouseX}px`;
             cursorDot.style.top = `${mouseY}px`;
         });
 
-        // Smooth follow for outline using requestAnimationFrame
         function animateCursor() {
             outlineX += (mouseX - outlineX) * 0.15;
             outlineY += (mouseY - outlineY) * 0.15;
@@ -1114,11 +1124,12 @@
         }
 
         // ==========================================
-        // MOBILE NAVIGATION
+        // MOBILE NAVIGATION (FIXED)
         // ==========================================
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
         const dropdown = document.querySelector('.dropdown');
+        const dropdownToggle = dropdown.querySelector('.nav-link'); // Specifically target the "Portfolio" link
 
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
@@ -1132,19 +1143,25 @@
             }
         });
 
-        dropdown.addEventListener('click', (e) => {
+        // 1. Handle ONLY the "Portfolio" dropdown toggle click
+        dropdownToggle.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) { 
-                e.preventDefault(); 
+                e.preventDefault(); // Prevent jumping to #portfolio
                 dropdown.classList.toggle('active'); 
             }
         });
 
-        document.querySelectorAll('.nav-link').forEach(link => {
+        // 2. Handle actual navigation links click (Home, Contact, IT Experience, and inner dropdown links)
+        // We exclude the main dropdown toggle so it doesn't close the menu when opening it
+        const navLinks = document.querySelectorAll('.nav-menu a:not(.dropdown > .nav-link)');
+        navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768 && !link.parentElement.classList.contains('dropdown')) {
+                if (window.innerWidth <= 768) {
                     navMenu.classList.remove('active');
-                    mobileToggle.querySelector('i').classList.remove('fa-times');
-                    mobileToggle.querySelector('i').classList.add('fa-bars');
+                    dropdown.classList.remove('active');
+                    const icon = mobileToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
                 }
             });
         });
@@ -1217,11 +1234,14 @@
         const closeModal = () => {
             modal.classList.remove('active');
             setTimeout(() => {
-                // Properly stop video playback to prevent memory leaks/background audio
                 const media = modalContent.querySelector('video');
                 if (media) {
                     media.pause();
                     media.src = '';
+                }
+                const iframe = modalContent.querySelector('iframe');
+                if (iframe) {
+                    iframe.src = '';
                 }
                 modalContent.innerHTML = ''; 
             }, 300);
@@ -1244,18 +1264,14 @@
         // ==========================================
         // CLOUDINARY VIDEO HOVER PREVIEW
         // ==========================================
-        // Only apply on devices with fine pointer and hover capability (Desktop)
         if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-            
-            // 1. Handle Cloudinary <video> elements in E-Commerce Ads and UGC-Style Content
             const videoThumbnails = document.querySelectorAll('.video-thumbnail');
             videoThumbnails.forEach(thumbnail => {
                 const video = thumbnail.querySelector('.preview-video');
-                // Skip if it's an iframe container (Film & Animation Trailers)
                 if (video && !thumbnail.querySelector('iframe')) {
                     thumbnail.addEventListener('mouseenter', () => {
                         video.currentTime = 0;
-                        video.play().catch(() => {}); // Catch autoplay prevention errors
+                        video.play().catch(() => {});
                         thumbnail.classList.add('is-playing');
                     });
                     
@@ -1267,20 +1283,17 @@
                 }
             });
 
-            // 2. Handle YouTube <iframe> elements in Film & Animation Trailers
             const iframes = document.querySelectorAll('.video-card iframe');
             iframes.forEach(iframe => {
                 if (iframe.src.includes('youtube.com/embed/') || iframe.src.includes('youtu.be/')) {
                     const thumbnail = iframe.parentElement;
                     thumbnail.addEventListener('mouseenter', () => {
-                        // Native YouTube postMessage API control (no external libraries needed)
                         iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
                         iframe.contentWindow.postMessage('{"event":"command","func":"seekTo","args":[0, true]}', '*');
                         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                     });
                     
                     thumbnail.addEventListener('mouseleave', () => {
-                        // stopVideo resets to beginning and restores the thumbnail
                         iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
                     });
                 }
